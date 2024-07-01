@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import Home from "./pages/Home.vue";
+</script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello</h1>
+  <Home />
 </template>

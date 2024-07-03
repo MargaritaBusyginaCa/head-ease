@@ -13,5 +13,13 @@ export const useEntriesStore = defineStore("entries", () => {
       }
     }
   }
-  return { entries, addEntry, editEntry };
+  function dateLogged(date) {
+    for (let i = 0; i < entries.value.length; i++) {
+      if (entries.value[i].date === date) {
+        return true;
+      }
+      return false;
+    }
+  }
+  return { entries, addEntry, editEntry, dateLogged };
 });

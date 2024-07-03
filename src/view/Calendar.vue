@@ -5,15 +5,16 @@ import { useEntriesStore } from "../states/entriesStore";
 import { ref } from "vue";
 
 const date = ref(new Date());
-const entries = useEntriesStore();
+const entriesStore = useEntriesStore();
+
 function addEntry() {
-  entries.addEntry({
+  entriesStore.addEntry({
     date: date.value,
     description: "hi",
   });
 }
 function editEntry() {
-  entries.editEntry(date.value, {
+  entriesStore.editEntry(date.value, {
     date: date.value,
     description: "bye",
   });
@@ -22,8 +23,10 @@ function editEntry() {
 
 <template>
   {{ date }}
-  {{ entries.entries }}
+  {{ entriesStore.entries }}
   <DatePicker v-model="date" inline></DatePicker>
-  <Button @click="addEntry">Add</Button>
-  <Button @click="editEntry">Edit</Button>
+  <div class="flex gap-5 my-5">
+    <Button v-if="!entriesStore.dateLogged(date)" @click="addEntry">Log</Button>
+    <Button v-else @click="editEntry">Edit</Button>
+  </div>
 </template>

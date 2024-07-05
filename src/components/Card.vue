@@ -23,6 +23,29 @@ function updateValue() {
     :optionLabel="optionLabel"
     :multiple="multiple"
     :aria-labelledby="ariaLabeledBy"
+    :pt="{ root: 'cards-group' }"
     @update:modelValue="updateValue"
-  />
+  >
+    <template #option="slotProps">
+      <div class="flex flex-col items-center">
+        <img
+          :src="slotProps.option.image"
+          :alt="slotProps.value"
+          class="h-20"
+        />
+        <p>{{ slotProps.option.value }}</p>
+      </div>
+    </template>
+  </SelectButton>
 </template>
+
+<style>
+.cards-group {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+.cards-group > button {
+  border-radius: 10px !important;
+}
+</style>

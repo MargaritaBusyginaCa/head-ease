@@ -1,7 +1,7 @@
 <script setup>
-import Home from "./pages/Home.vue";
+import UserPanel from "./view/UserPanel.vue";
 </script>
 
 <template>
-  <Home />
+  <UserPanel />
 </template>

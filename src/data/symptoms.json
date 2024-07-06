@@ -1,0 +1,11 @@
+[
+  {
+    "value": "Mild head ache",
+    "image": "/images/anxiety.png"
+  },
+  { "value": "Migraine", "image": "/images/pain.png" },
+  {
+    "value": "Light sensitivity",
+    "image": "/images/eye.png"
+  }
+]

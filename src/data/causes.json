@@ -1,0 +1,14 @@
+[
+  {
+    "value": "Smells",
+    "image": "/images/cleaning-spray.png"
+  },
+  {
+    "value": "weather changes",
+    "image": "/images/hot-weather.png"
+  },
+  {
+    "value": "Overheating",
+    "image": "/images/sun.png"
+  }
+]

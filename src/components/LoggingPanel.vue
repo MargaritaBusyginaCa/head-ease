@@ -1,53 +1,48 @@
 <script setup>
-import Card from "./Card.vue";
+import { useEntriesStore } from "../states/entriesStore";
+import symptomsData from "../data/symptoms.json";
+import causesData from "../data/causes.json";
+import FloatLabel from "primevue/floatlabel";
+import CardGroup from "./CardGroup.vue";
+import Textarea from "primevue/textarea";
+import Button from "primevue/button";
 import { ref } from "vue";
 
+const props = defineProps({
+  date: Object,
+});
+
+const entriesStore = useEntriesStore();
 const selectedSymptoms = ref(null);
 function selectSymptoms(value) {
   selectedSymptoms.value = value;
 }
-const symptoms = ref([
-  {
-    name: "Mild head ache",
-    value: "Mild head ache",
-    image: "/images/anxiety.png",
-  },
-  { name: "Migraine", value: "Migraine", image: "/images/pain.png" },
-  {
-    name: "Light sensitivity",
-    value: "Light sensitivity",
-    image: "/images/eye.png",
-  },
-]);
+const symptoms = ref(symptomsData);
 
 const selectedCauses = ref(null);
 function selectCauses(value) {
   selectedCauses.value = value;
 }
-const causes = ref([
-  {
-    name: "Smells",
-    value: "Smells",
-    image: "/images/cleaning-spray.png",
-  },
-  {
-    name: "Weather changes",
-    value: "weather changes",
-    image: "/images/hot-weather.png",
-  },
-  {
-    name: "Overheating",
-    value: "Overheating",
-    image: "/images/sun.png",
-  },
-]);
+const causes = ref(causesData);
+const notesValue = ref("");
+
+function saveData() {
+  const entryData = {
+    date: props.date,
+    symptoms: selectedSymptoms.value,
+    causes: selectedCauses.value,
+    notes: notesValue,
+  };
+  entriesStore.saveEntry(props.date, entryData);
+}
 </script>
 
 <template>
-  <div class="">
+  {{ entriesStore.entries }}
+  <div class="*:my-7">
     <div>
       <p>Symptoms</p>
-      <Card
+      <CardGroup
         :options="symptoms"
         optionLabel="name"
         :multiple="true"
@@ -57,7 +52,7 @@ const causes = ref([
     </div>
     <div>
       <p>Causes</p>
-      <Card
+      <CardGroup
         :options="causes"
         optionLabel="name"
         :multiple="true"
@@ -65,5 +60,12 @@ const causes = ref([
         @update-value="selectCauses"
       />
     </div>
+    <div>
+      <FloatLabel>
+        <Textarea v-model="notesValue" rows="5" cols="5" class="w-full" />
+        <label>Notes</label>
+      </FloatLabel>
+    </div>
   </div>
+  <Button @click="saveData">Save</Button>
 </template>

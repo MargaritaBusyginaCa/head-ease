@@ -31,14 +31,13 @@ function saveData() {
     date: props.date,
     symptoms: selectedSymptoms.value,
     causes: selectedCauses.value,
-    notes: notesValue,
+    notes: notesValue.value,
   };
-  entriesStore.saveEntry(props.date, entryData);
+  entriesStore.saveEntry(entryData);
 }
 </script>
 
 <template>
-  {{ entriesStore.entries }}
   <div class="*:my-7">
     <div>
       <p>Symptoms</p>

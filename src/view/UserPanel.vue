@@ -8,9 +8,15 @@ const entriesStore = useEntriesStore();
 const date = ref(new Date());
 const today = ref(new Date());
 
-function monthChange() {
-  //To-do: change getLoggedDays
-  console.log("month-changed");
+function monthChange(value) {
+  entriesStore.month = value.month;
+  entriesStore.getLoggedDays();
+}
+function yearChange(value) {
+  const year = value.year - 1900;
+  entriesStore.year = year;
+  console.log(entriesStore.month);
+  entriesStore.getLoggedDays();
 }
 </script>
 
@@ -25,6 +31,7 @@ function monthChange() {
         :maxDate="today"
         showButtonBar
         @month-change="monthChange"
+        @year-change="yearChange"
       >
         <template #date="slotProps">
           <strong

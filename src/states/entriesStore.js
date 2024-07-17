@@ -3,7 +3,9 @@ import { ref } from "vue";
 
 export const useEntriesStore = defineStore("entries", () => {
   const entries = ref([]);
-
+  const date = new Date();
+  const month = ref(date.getMonth() + 1);
+  const year = ref(date.getYear());
   function saveEntry(entryData) {
     if (entries.value.length > 0) {
       editEntry(entryData);
@@ -12,6 +14,7 @@ export const useEntriesStore = defineStore("entries", () => {
     }
     getLoggedDays();
   }
+
   function addEntry(entryData) {
     entries.value.unshift(entryData);
   }
@@ -27,18 +30,15 @@ export const useEntriesStore = defineStore("entries", () => {
     }
   }
   function getLoggedDays() {
-    const month = 6;
-    const year = 124;
     const loggedDays = [];
     for (let i = 0; i < entries.value.length; i++) {
-      if (
-        entries.value[i].date.getMonth() === month &&
-        entries.value[i].date.getYear() === year
-      ) {
+      const entryMonth = entries.value[i].date.getMonth() + 1;
+      const entryYear = entries.value[i].date.getYear();
+      if (entryMonth === month.value && entryYear === year.value) {
         loggedDays.push(entries.value[i].date.getDate());
       }
     }
     return loggedDays;
   }
-  return { entries, saveEntry, getLoggedDays };
+  return { entries, saveEntry, getLoggedDays, month, year };
 });

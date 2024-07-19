@@ -13,25 +13,21 @@ const props = defineProps({
 });
 
 const entriesStore = useEntriesStore();
-const selectedSymptoms = ref(null);
 function selectSymptoms(value) {
-  selectedSymptoms.value = value;
+  entriesStore.selectedSymptoms = value;
 }
 const symptoms = ref(symptomsData);
-
-const selectedCauses = ref(null);
 function selectCauses(value) {
-  selectedCauses.value = value;
+  entriesStore.selectedCauses = value;
 }
 const causes = ref(causesData);
-const notesValue = ref("");
 
 function saveData() {
   const entryData = {
     date: props.date,
-    symptoms: selectedSymptoms.value,
-    causes: selectedCauses.value,
-    notes: notesValue.value,
+    symptoms: entriesStore.selectedSymptoms,
+    causes: entriesStore.selectedCauses,
+    notes: entriesStore.note,
   };
   entriesStore.saveEntry(entryData);
 }
@@ -61,7 +57,12 @@ function saveData() {
     </div>
     <div>
       <FloatLabel>
-        <Textarea v-model="notesValue" rows="5" cols="5" class="w-full" />
+        <Textarea
+          v-model="entriesStore.note"
+          rows="5"
+          cols="5"
+          class="w-full"
+        />
         <label>Notes</label>
       </FloatLabel>
     </div>

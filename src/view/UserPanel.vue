@@ -18,6 +18,25 @@ function yearChange(value) {
   console.log(entriesStore.month);
   entriesStore.getLoggedDays();
 }
+function dateSelect() {
+  resetForm();
+}
+function resetForm() {
+  const selectedButtons = document.getElementsByClassName(
+    "p-togglebutton-checked"
+  );
+
+  // Convert the live HTMLCollection to a static array
+  const buttonsArray = Array.from(selectedButtons);
+
+  // Now iterate over the static array
+  buttonsArray.forEach((button) =>
+    button.classList.remove("p-togglebutton-checked")
+  );
+  entriesStore.selectedSymptoms = null;
+  entriesStore.selectedCauses = null;
+  entriesStore.note = null;
+}
 </script>
 
 <template>
@@ -32,6 +51,7 @@ function yearChange(value) {
         showButtonBar
         @month-change="monthChange"
         @year-change="yearChange"
+        @date-select="dateSelect"
       >
         <template #date="slotProps">
           <strong

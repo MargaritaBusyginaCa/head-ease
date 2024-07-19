@@ -6,6 +6,9 @@ export const useEntriesStore = defineStore("entries", () => {
   const date = new Date();
   const month = ref(date.getMonth() + 1);
   const year = ref(date.getYear());
+  let selectedCauses = ref(null);
+  let selectedSymptoms = ref(null);
+  let note = ref(null);
   function saveEntry(entryData) {
     if (entries.value.length > 0) {
       editEntry(entryData);
@@ -40,5 +43,14 @@ export const useEntriesStore = defineStore("entries", () => {
     }
     return loggedDays;
   }
-  return { entries, saveEntry, getLoggedDays, month, year };
+  return {
+    entries,
+    saveEntry,
+    getLoggedDays,
+    month,
+    year,
+    selectedCauses,
+    selectedSymptoms,
+    note,
+  };
 });

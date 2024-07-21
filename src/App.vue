@@ -1,7 +1,7 @@
 <script setup>
-import UserPanel from "./view/UserPanel.vue";
+import Date from "./view/Date.vue";
 </script>
 
 <template>
-  <UserPanel />
+  <Date />
 </template>
